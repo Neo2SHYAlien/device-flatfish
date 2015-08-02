@@ -5,6 +5,23 @@ $(call inherit-product, device/allwinner/common/common.mk)
 
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base.mk)
 
+#kernel
+ifeq ($(TARGET_PREBUILT_KERNEL),)
+LOCAL_KERNEL := device/allwinner/flatfish/kernel
+else
+LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
+endif
+
+PRODUCT_COPY_FILES += \
+	$(LOCAL_KERNEL):kernel
+
+#fix overlay
+DEVICE_PACKAGE_OVERLAYS := device/allwinner/flatfish/overlay
+#common files
+FLATFISH_COMMON := device/allwinner/flatfish/common
+
+#########################
+
 # wifi features
 PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
@@ -19,6 +36,22 @@ PRODUCT_PACKAGES += \
 	brcm_patchram_plus \
 	auto_pair_devlist.conf \
 	audio.a2dp.default
+	
+PRODUCT_PACKAGES += \
+    lights.grouper \
+    audio.primary.grouper \
+    power.grouper \
+    audio.a2dp.default \
+    audio.usb.default \
+    librs_jni \
+    setup_fs \
+    l2ping \
+    hcitool \
+    bttest \
+    com.android.future.usb.accessory
+
+# for bugmailer
+PRODUCT_PACKAGES += send_bug
 
 PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.bluetooth.xml:system/etc/permissions/android.hardware.bluetooth.xml \
@@ -53,7 +86,7 @@ PRODUCT_PACKAGES += \
         audio.r_submix.default
 
 PRODUCT_PROPERTY_OVERRIDES += \
-	persist.sys.timezone=Asia/Taipei \
+	persist.sys.timezone=Europe/Sofia \
 	persist.sys.language=en \
 	persist.sys.country=US
 
@@ -71,7 +104,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 #no home key
 PRODUCT_PROPERTY_OVERRIDES += \
-	ro.moz.has_home_button=0
+	qemu.hw.mainkeys=0
 
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.firmware_revision=flatfish_$(shell date +%Y%m%d-%H%M)
@@ -88,8 +121,5 @@ PRODUCT_AAPT_PREF_CONFIG := xhdpi
 PRODUCT_BRAND  := B2G
 PRODUCT_NAME   := full_flatfish
 PRODUCT_DEVICE := flatfish
-PRODUCT_MODEL  := B2G on flatfish
+PRODUCT_MODEL  := Neo2SHYAlien AOSP flatfish
 PRODUCT_RESTRICT_VENDOR_FILES := false
-
-# Add GAIA flag to support tablet distribution
-GAIA_DEVICE_TYPE := tablet
