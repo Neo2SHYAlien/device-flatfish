@@ -1,0 +1,9 @@
+on init
+    insmod /nand.ko
+    insmod /touch.ko
+    insmod /keyboard.ko
+    insmod /disp.ko
+    insmod /lcd.ko
+    insmod /hdmi.ko
+#    export PATH /sbin
+#    export LD_LIBRARY_PATH .:/sbin

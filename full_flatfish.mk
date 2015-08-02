@@ -1,4 +1,37 @@
-# inherit from the non-open-source side, if present
+$(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
+
+# The gps config appropriate for this device
+$(call inherit-product, device/common/gps/gps_us_supl.mk)
+
+$(call inherit-product-if-exists, vendor/allwinner/flatfish/flatfish-vendor.mk)
+
+DEVICE_PACKAGE_OVERLAYS += device/allwinner/flatfish/overlay
+
+LOCAL_PATH := device/allwinner/flatfish
+ifeq ($(TARGET_PREBUILT_KERNEL),)
+	LOCAL_KERNEL := $(LOCAL_PATH)/kernel
+else
+	LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
+endif
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_KERNEL):kernel
+
+$(call inherit-product, build/target/product/full.mk)
+
+PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
+PRODUCT_NAME := full_flatfish
+PRODUCT_DEVICE := flatfish
+
+# Ramdisk files
+PRODUCT_PACKAGES += \
+	fstab.flatfish \
+	init.flatfish.rc \
+	init.flatfish.usb.rc \
+	ueventd.flatfish.rc \
+	nand.ko
+
+############################### FIREFOX
 $(call inherit-product-if-exists, vendor/vendor-blobs.mk)
 
 $(call inherit-product, device/allwinner/common/common.mk)
@@ -51,9 +84,12 @@ PRODUCT_PACKAGES += \
         audio.a2dp.default \
         audio.usb.default \
         audio.r_submix.default
+#wlan
+PRODUCT_PACKAGES += \
+	libnetcmdiface
 
 PRODUCT_PROPERTY_OVERRIDES += \
-	persist.sys.timezone=Asia/Taipei \
+	persist.sys.timezone=Europe/Sofia \
 	persist.sys.language=en \
 	persist.sys.country=US
 
@@ -66,30 +102,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
         ro.sys.bootfast=true
 
 PRODUCT_PROPERTY_OVERRIDES += \
-	ro.sf.lcd_density=160 \
-	ro.product.firmware=v3.2
-
-#no home key
-PRODUCT_PROPERTY_OVERRIDES += \
-	ro.moz.has_home_button=0
+	ro.sf.lcd_density=16
 
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.firmware_revision=flatfish_$(shell date +%Y%m%d-%H%M)
 
 PRODUCT_CHARACTERISTICS := tablet
-
-# OTA
-ENABLE_LIBRECOVERY := true
-
-# Overrides
-PRODUCT_AAPT_CONFIG := xlarge hdpi xhdpi large
-PRODUCT_AAPT_PREF_CONFIG := xhdpi
-
-PRODUCT_BRAND  := B2G
-PRODUCT_NAME   := full_flatfish
-PRODUCT_DEVICE := flatfish
-PRODUCT_MODEL  := B2G on flatfish
-PRODUCT_RESTRICT_VENDOR_FILES := false
-
-# Add GAIA flag to support tablet distribution
-GAIA_DEVICE_TYPE := tablet
