@@ -14,5 +14,5 @@
 
 # Mounts the first usable partition of the specified device
 #/devices/platform/awsmc.3/mmc_host for sdio
-dev_mount	sdcard	/mnt/sdcard	1	/dev/block/mmcblk0p1
+dev_mount	sdcard	/mnt/sdcard	1	/devices/platform/sunxi-mmc.2/mmc_host
 dev_mount	extsd	/mnt/extsd	auto	/devices/platform/sunxi-mmc.0/mmc_host	/devices/platform/sunxi-mmc.0/mmc_host

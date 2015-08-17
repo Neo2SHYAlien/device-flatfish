@@ -5,22 +5,7 @@ $(call inherit-product, device/allwinner/common/common.mk)
 
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base.mk)
 
-#kernel
-ifeq ($(TARGET_PREBUILT_KERNEL),)
-LOCAL_KERNEL := device/allwinner/flatfish/kernel
-else
-LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
-endif
-
-PRODUCT_COPY_FILES += \
-	$(LOCAL_KERNEL):kernel
-
-#fix overlay
-DEVICE_PACKAGE_OVERLAYS := device/allwinner/flatfish/overlay
-#common files
-FLATFISH_COMMON := device/allwinner/flatfish/common
-
-#########################
+#DEVICE_PACKAGE_OVERLAYS += device/allwinner/flatfish/overlay
 
 # wifi features
 PRODUCT_COPY_FILES += \
@@ -36,22 +21,6 @@ PRODUCT_PACKAGES += \
 	brcm_patchram_plus \
 	auto_pair_devlist.conf \
 	audio.a2dp.default
-	
-PRODUCT_PACKAGES += \
-    lights.grouper \
-    audio.primary.grouper \
-    power.grouper \
-    audio.a2dp.default \
-    audio.usb.default \
-    librs_jni \
-    setup_fs \
-    l2ping \
-    hcitool \
-    bttest \
-    com.android.future.usb.accessory
-
-# for bugmailer
-PRODUCT_PACKAGES += send_bug
 
 PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.bluetooth.xml:system/etc/permissions/android.hardware.bluetooth.xml \
@@ -88,7 +57,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PROPERTY_OVERRIDES += \
 	persist.sys.timezone=Europe/Sofia \
 	persist.sys.language=en \
-	persist.sys.country=US
+	persist.sys.country=BG
 
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.hwa.force=true
@@ -123,3 +92,13 @@ PRODUCT_NAME   := full_flatfish
 PRODUCT_DEVICE := flatfish
 PRODUCT_MODEL  := Neo2SHYAlien AOSP flatfish
 PRODUCT_RESTRICT_VENDOR_FILES := false
+
+#kernel
+ifeq ($(TARGET_PREBUILT_KERNEL),)
+LOCAL_KERNEL := device/allwinner/flatfish/kernel
+else
+LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
+endif
+
+PRODUCT_COPY_FILES += \
+	$(LOCAL_KERNEL):kernel

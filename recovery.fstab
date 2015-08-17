@@ -7,4 +7,4 @@
 /misc                   emmc            /dev/block/mmcblk0p9
 /recovery               ext4            /dev/block/mmcblk0p10
 /cache                  ext4            /dev/block/mmcblk0p11
-/sdcard                 vfat            /dev/block/mmcblk0p1
+/sdcard                 vfat            /dev/block/mmcblk0p1    /dev/block/nandj

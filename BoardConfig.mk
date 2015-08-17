@@ -40,18 +40,5 @@ BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_BCM := true
 BOARD_HAVE_BLUETOOTH_BLUEZ := true
 
-#####################################
-#TARGET_ARCH := arm
-#TARGET_CPU_SMP := true
-#TARGET_CPU_ABI := armeabi-v7a
-#TARGET_CPU_ABI2 := armeabi
-#TARGET_ARCH_VARIANT := armv7-a-neon
-#ARCH_ARM_HAVE_TLS_REGISTER := true
-#BOARD_HAS_NO_SELECT_BUTTON := true
-
-#USE_OPENGL_RENDERER := true
-
-DEVICE_RESOLUTION := 1280x800
-
-#xtra stuff
-SUPERUSER_EMBEDDED := true
+#data partition size
+BOARD_USERDATAIMAGE_PARTITION_SIZE := 2147483648
