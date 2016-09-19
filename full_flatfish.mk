@@ -84,6 +84,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
 	dalvik.vm.heapminfree=512k \
 	dalvik.vm.heapmaxfree=8m
 
+#power settings tuning - deep sleep
+PRODUCT_PROPERTY_OVERRIDES += \
+	ro.ril.disable.power.collapse=1 \
+	pm.sleep_mode=1 \
+	wifi.supplicant_scan_interval = 300
 
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.firmware_revision=flatfish_$(shell date +%Y%m%d-%H%M)
