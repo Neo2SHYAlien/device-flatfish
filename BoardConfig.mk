@@ -4,8 +4,19 @@
 #
 include device/allwinner/common/BoardConfigCommon.mk
 
-BOARD_KERNEL_CMDLINE += ion_reserve=295M
-BOARD_KERNEL_CMDLINE += vmalloc=320M
+#BOARD_KERNEL_CMDLINE = ion_reserve=295M
+#BOARD_KERNEL_CMDLINE = vmalloc=320M
+TARGET_ARCH_VARIANT_CPU := cortex-a9
+TARGET_CPU_VARIANT := cortex-a9
+ARCH_ARM_HAVE_NEON := true
+
+BOARD_KERNEL_BASE = 0x40000000
+BOARD_KERNEL_CMDLINE = console=ttyS0,115200
+BOARD_KERNEL_CMDLINE = rw
+BOARD_KERNEL_CMDLINE = init=/init
+BOARD_KERNEL_CMDLINE = androidboot.hardware=flatfish
+BOARD_KERNEL_CMDLINE = ion_reserve=256M
+BOARD_KERNEL_CMDLINE = loglevel=7
 
 SYSTEM_FS_TYPE        := ext4
 SYSTEM_PARTITION_TYPE := EMMC

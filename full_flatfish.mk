@@ -5,7 +5,7 @@ $(call inherit-product, device/allwinner/common/common.mk)
 
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base.mk)
 
-#DEVICE_PACKAGE_OVERLAYS += device/allwinner/flatfish/overlay
+DEVICE_PACKAGE_OVERLAYS += device/allwinner/flatfish/overlay
 
 # wifi features
 PRODUCT_COPY_FILES += \
@@ -29,7 +29,8 @@ PRODUCT_COPY_FILES += \
 	system/bluetooth/data/blacklist.conf:system/etc/bluetooth/blacklist.conf
 
 PRODUCT_COPY_FILES += \
-	device/allwinner/flatfish/gps.conf:system/etc/gps.conf 
+	device/allwinner/flatfish/gps.conf:system/etc/gps.conf \
+	frameworks/native/data/etc/android.hardware.location.gps.xml:system/etc/permissions/android.hardware.location.gps.xml
 
 # GPU buffer size configs
 PRODUCT_COPY_FILES += \
@@ -87,13 +88,26 @@ PRODUCT_PROPERTY_OVERRIDES += \
 #power settings tuning - deep sleep
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.ril.disable.power.collapse=1 \
-	pm.sleep_mode=1 \
+	pm.sleep_mode=2 \
 	wifi.supplicant_scan_interval = 300
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    net.tcp.buffersize.default=4096,87380,256960,4096,16384,256960 \
+    net.tcp.buffersize.wifi=4096,87380,256960,4096,16384,256960 \
+    net.tcp.buffersize.wimax = 4096,221184,524288,4096,16384,110208 \
+    net.tcp.buffersize.umts=4096,87380,256960,4096,16384,256960 \
+    net.tcp.buffersize.gprs=4096,87380,256960,4096,16384,256960 \
+    net.tcp.buffersize.edge=4096,87380,256960,4096,16384,256960 \
 
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.firmware_revision=flatfish_$(shell date +%Y%m%d-%H%M)
 
 PRODUCT_CHARACTERISTICS := tablet
+
+# Filesystem management tools
+PRODUCT_PACKAGES += \
+	make_ext4fs \
+	setup_fs
 
 # OTA
 ENABLE_LIBRECOVERY := true
@@ -105,14 +119,14 @@ PRODUCT_AAPT_PREF_CONFIG := xhdpi
 PRODUCT_BRAND  := B2G
 PRODUCT_NAME   := full_flatfish
 PRODUCT_DEVICE := flatfish
-PRODUCT_MODEL  := Neo2SHYAlien AOSP flatfish
+PRODUCT_MODEL  := AOSP on flatfish
 PRODUCT_RESTRICT_VENDOR_FILES := false
 
 #kernel
 ifeq ($(TARGET_PREBUILT_KERNEL),)
-LOCAL_KERNEL := device/allwinner/flatfish/kernel
+   LOCAL_KERNEL := device/allwinner/flatfish/kernel
 else
-LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
+   LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
 endif
 
 PRODUCT_COPY_FILES += \
