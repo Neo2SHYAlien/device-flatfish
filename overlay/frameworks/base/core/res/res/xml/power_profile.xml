@@ -8,6 +8,8 @@
     <item name="wifi.scan">100</item>
     <item name="dsp.audio">14.1</item>
     <item name="dsp.video">54.0</item>
+    <item name="radio.active">0</item>
+    <item name="radio.scanning">0</item>
     <array name="cpu.speeds">
         <value>60000</value>
         <value>120000</value>
