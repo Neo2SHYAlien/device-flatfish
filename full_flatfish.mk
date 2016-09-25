@@ -38,6 +38,9 @@ PRODUCT_COPY_FILES += \
 
 #key and tp config file
 PRODUCT_COPY_FILES += \
+	frameworks/native/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
+	frameworks/native/data/etc/android.hardware.sensor.light.xml:system/etc/permissions/android.hardware.sensor.light.xml \
+	frameworks/native/data/etc/android.hardware.sensor.gyroscope.xml:system/etc/permissions/android.hardware.sensor.gyroscope.xml \
 	device/allwinner/flatfish/configs/sw-keyboard.kl:system/usr/keylayout/sw-keyboard.kl \
 	device/allwinner/flatfish/configs/axp22-supplyer.kl:system/usr/keylayout/axp22-supplyer.kl \
 	device/allwinner/flatfish/configs/tp.idc:system/usr/idc/ft5x_ts.idc \
