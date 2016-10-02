@@ -32,11 +32,16 @@ on early-fs
     insmod /system/vendor/modules/lcd.ko
 
 on post-fs-data
-    mkdir /data/media 0770 media_rw media_rw
+    #mkdir /data/media 0770 media_rw media_rw
     #mkdir /mnt/media/sdcard 0770 media_rw media_rw
 
-#/data/gps permission
-    mkdir /data/gps 0777 system system
+# /data/gps permission
+    #mkdir /data/gps 0777 system system
+    #mkdir /data/gps 0777 gps gps
+    mkdir /data/gps 7777 gps system
+    #mkdir /data/gps
+    #chmod 2777 /data/gps
+    #chown system.system /data/gps
 
     # gps reset init
     write /system/class/gps/reset 0
@@ -45,9 +50,6 @@ on post-fs-data
 
 on fs
     format_userdata /dev/block/mmcblk0p1 "Saga G1"
-    chmod 0755 /system/b2g/b2g
-    chmod 0755 /system/b2g/plugin-container
-    chmod 0755 /system/b2g/updater
 
 # radio related, such as imei.conf
     mkdir /data/misc/radio 0777 system radio
