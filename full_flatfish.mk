@@ -9,7 +9,6 @@ DEVICE_PACKAGE_OVERLAYS += device/allwinner/flatfish/overlay
 
 # wifi features
 PRODUCT_COPY_FILES += \
-	frameworks/native/data/etc/tablet_core_hardware.xml:system/etc/permissions/tablet_core_hardware.xml \
 	frameworks/native/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
 	frameworks/native/data/etc/android.hardware.wifi.direct.xml:system/etc/permissions/android.hardware.wifi.direct.xml
 
