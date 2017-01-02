@@ -7,6 +7,17 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base.mk)
 
 DEVICE_PACKAGE_OVERLAYS += device/allwinner/flatfish/overlay
 
+#ramdisk
+PRODUCT_COPY_FILES += \
+	device/allwinner/flatfish/init.rc:root/init.rc \
+	device/allwinner/flatfish/init.flatfish.rc:root/init.flatfish.rc \
+	device/allwinner/flatfish/init.flatfish.usb.rc:root/init.flatfish.usb.rc \
+	device/allwinner/flatfish/initlogo.rle:root/initlogo.rle \
+	device/allwinner/flatfish/init.recovery.flatfish.rc:root/init.recovery.flatfish.rc \
+	device/allwinner/flatfish/nand.ko:root/nand.ko \
+	device/allwinner/flatfish/ueventd.flatfish.rc:root/ueventd.flatfish.rc \
+	device/allwinner/flatfish/fstab.flatfish:root/fstab.flatfish 
+
 # wifi features
 PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
