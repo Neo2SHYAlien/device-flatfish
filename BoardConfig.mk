@@ -4,19 +4,24 @@
 #
 include device/allwinner/common/BoardConfigCommon.mk
 
-#BOARD_KERNEL_CMDLINE = ion_reserve=295M
-#BOARD_KERNEL_CMDLINE = vmalloc=320M
-TARGET_ARCH_VARIANT_CPU := cortex-a9
-TARGET_CPU_VARIANT := cortex-a9
-ARCH_ARM_HAVE_NEON := true
+# cpu stuff
+TARGET_CPU_ABI := armeabi-v7a
+TARGET_CPU_ABI2 := armeabi
+TARGET_CPU_SMP := true
+TARGET_ARCH := arm
+TARGET_CPU_VARIANT := cortex-a7
+TARGET_ARCH_VARIANT := armv7-a-neon
+ARCH_ARM_HAVE_TLS_REGISTER := true
+TARGET_EXTRA_CFLAGS += $(call cc-option,"-march=armv7-a -mtune=cortex-a9", $(call cc-option,"-march=armv7-a -mtune=cortex-a8"))
 
 BOARD_KERNEL_BASE = 0x40000000
-BOARD_KERNEL_CMDLINE = console=ttyS0,115200
-BOARD_KERNEL_CMDLINE = rw
-BOARD_KERNEL_CMDLINE = init=/init
-BOARD_KERNEL_CMDLINE = androidboot.hardware=flatfish
-BOARD_KERNEL_CMDLINE = ion_reserve=256M
-BOARD_KERNEL_CMDLINE = loglevel=7
+BOARD_KERNEL_CMDLINE += console=ttyS0,115200
+BOARD_KERNEL_CMDLINE += rw
+BOARD_KERNEL_CMDLINE += init=/init
+BOARD_KERNEL_CMDLINE += androidboot.hardware=flatfish
+BOARD_KERNEL_CMDLINE += ion_reserve=256M
+BOARD_KERNEL_CMDLINE += loglevel=7
+BOARD_KERNEL_CMDLINE += selinux=0
 
 SYSTEM_FS_TYPE        := ext4
 SYSTEM_PARTITION_TYPE := EMMC
@@ -28,6 +33,8 @@ TARGET_NO_BOOTLOADER := true
 TARGET_NO_RECOVERY := false
 TARGET_NO_KERNEL := false
 TARGET_NO_RADIOIMAGE := true
+
+TARGET_PROVIDES_INIT_RC = true
 
 TARGET_USERIMAGES_USE_EXT4 := true
 BOARD_FLASH_BLOCK_SIZE := 4096
